@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     Button button;
 
     RequestQueue mRequestQueue;
+    String location;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         test.setText("--==--");
 
 
+        location = PINYIN.getPinYin("大连");
+
 
         mRequestQueue =  Volley.newRequestQueue(this);
 
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         StringRequest request = new StringRequest(
                 //"http://182.254.210.18/QueryCPC/QueryAll.php",
-                "https://api.thinkpage.cn/v3/weather/now.json?key=pqmsn1xd41zne0oy&location=dalian&language=zh-Hans&unit=c",
+                "https://api.thinkpage.cn/v3/weather/now.json?key=pqmsn1xd41zne0oy&location=" + location + "&language=zh-Hans&unit=c",
                 //"https://api.thinkpage.cn/v3/weather/now.json?key=pqmsn1xd41zne0oy&location=大连&language=zh-Hans&unit=c",
                 //"http://cityuit.wuxiwei.cn/index.php/Home/Campus/appLibrary/title/android内核",
                 new Response.Listener<String>() {
