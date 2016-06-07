@@ -1,29 +1,27 @@
-package clwater.study_xutils;
+package clwater.study_xutils.Ui;
 
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
-import org.xutils.common.util.LogUtil;
+
+import clwater.study_xutils.R;
+import clwater.study_xutils.Tools.PINYIN;
 
 
 @ContentView(R.layout.activity_main)
@@ -40,6 +38,18 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        if(true){
+            
+        }
+
+
+        ActionBar actionBar = this.getActionBar();
+
+        //actionBar.show();
+        actionBar.setSubtitle("mytest");
+        actionBar.setTitle("vogella.com");
 
 
         x.view().inject(this);
@@ -67,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
         StringRequest request = new StringRequest(
                 //"http://182.254.210.18/QueryCPC/QueryAll.php",
                 "https://api.thinkpage.cn/v3/weather/now.json?key=pqmsn1xd41zne0oy&location=" + location + "&language=zh-Hans&unit=c",
-                //"https://api.thinkpage.cn/v3/weather/now.json?key=pqmsn1xd41zne0oy&location=大连&language=zh-Hans&unit=c",
-                //"http://cityuit.wuxiwei.cn/index.php/Home/Campus/appLibrary/title/android内核",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String arg0) {  //收到成功应答后会触发这里
