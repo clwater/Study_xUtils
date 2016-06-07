@@ -26,4 +26,5 @@ dependencies {
     compile 'org.xutils:xutils:3.2.2'
     compile files('libs/volley.jar')
     compile files('libs/pinyin4j-2.5.0.jar')
+
 }
