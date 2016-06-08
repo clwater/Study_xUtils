@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -17,14 +16,12 @@ import clwater.study_xutils.R;
  */
 
 
-@ContentView(R.layout.choosecpcofp)
-public class ChooseCPCofP  extends AppCompatActivity {
+@ContentView(R.layout.choosecpcofc)
+public class ChooseCPCofc extends AppCompatActivity {
 
 
-    @ViewInject(R.id.ccpcpp)
+    @ViewInject(R.id.ccpcpc)
     ListView ccpcpp;
-
-    public static boolean firstenter = true;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +32,17 @@ public class ChooseCPCofP  extends AppCompatActivity {
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle("选择地址");
-        actionBar.setSubtitle("选择省,直辖市,特别行政区");
+        actionBar.setSubtitle("选择地级市");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setLogo(R.drawable.test);
         actionBar.setDisplayUseLogoEnabled(true);
 
 
-        if (firstenter == true) {
-            firstenter = false;
-            startActivity(new Intent(this, ChooseCPCofc.class));
-            //this.finish();
 
-        }
+
 
     }
+
+
+
 }

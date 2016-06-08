@@ -2,6 +2,7 @@ package clwater.study_xutils.Ui;
 
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -39,39 +40,35 @@ public class MainActivity extends AppCompatActivity {
     String location;
 
 
+    public static boolean firstenter = true;
+
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-
-
-
         x.view().inject(this);
-
-
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setSubtitle("副标题");
+        //actionBar.setSubtitle("副标题");
         actionBar.setTitle("主标题");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setLogo(R.drawable.test);
         actionBar.setDisplayUseLogoEnabled(true);
 
 
-
-
-
-
         button.setText("haoyongbu");
-
-
-        test.setText("--==--");
-
-
+        //test.setText("--==--");
         location = PINYIN.getPinYin("大连");
-
-
         mRequestQueue =  Volley.newRequestQueue(this);
+
+
+        if (firstenter == true) {
+            firstenter = false;
+            startActivity(new Intent(this, ChooseCPCofP.class));
+            //this.finish();
+
+        }
+
 
 
     }
@@ -80,30 +77,31 @@ public class MainActivity extends AppCompatActivity {
     @Event(value = R.id.button)
     private void onTestBaidu1Click(View view){
 
-        StringRequest request = new StringRequest(
-                //"http://182.254.210.18/QueryCPC/QueryAll.php",
-                "https://api.thinkpage.cn/v3/weather/now.json?key=pqmsn1xd41zne0oy&location=" + location + "&language=zh-Hans&unit=c",
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String arg0) {  //收到成功应答后会触发这里
-                        Log.d("=-=" , "zhenna-----=====------" );
-                        Log.d("=-=" , "zhenna" + arg0);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) { //出现连接错误会触发这里
-                        Log.d("=-=" , "=-=2");
-                    }
-                }
-        );
-        mRequestQueue.add(request);
+        startActivity(new Intent(this , ChooseCPCofP.class));
+
+//        StringRequest request = new StringRequest(
+//                //"http://182.254.210.18/QueryCPC/QueryAll.php",
+//                "https://api.thinkpage.cn/v3/weather/now.json?key=pqmsn1xd41zne0oy&location=" + location + "&language=zh-Hans&unit=c",
+//                new Response.Listener<String>() {
+//                    @Override
+//                    public void onResponse(String arg0) {  //收到成功应答后会触发这里
+//                        Log.d("=-=" , "zhenna-----=====------" );
+//                        Log.d("=-=" , "zhenna" + arg0);
+//                    }
+//                },
+//                new Response.ErrorListener() {
+//                    @Override
+//                    public void onErrorResponse(VolleyError volleyError) { //出现连接错误会触发这里
+//                        Log.d("=-=" , "=-=2");
+//                    }
+//                }
+//        );
+//        mRequestQueue.add(request);
 
     }
 
 
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to theaction bar if it is present.
         getMenuInflater().inflate(R.menu.menu, menu);//获取menu目录下simple.xml的菜单文件
         return true;
     }
