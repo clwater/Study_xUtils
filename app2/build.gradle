@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.clwater.myweater"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -21,9 +21,8 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile files('libs/pinyin4j-2.5.0.jar')
-    compile 'org.xutils:xutils:3.2.2'
     compile files('libs/volley.jar')
+    compile files('libs/xUtils-3.0.jar')
 }
