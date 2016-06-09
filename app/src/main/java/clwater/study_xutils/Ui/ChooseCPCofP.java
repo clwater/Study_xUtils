@@ -6,6 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
@@ -25,6 +27,7 @@ public class ChooseCPCofP  extends AppCompatActivity {
     ListView ccpcpp;
 
     public static boolean firstenter = true;
+    RequestQueue mRequestQueue;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +48,9 @@ public class ChooseCPCofP  extends AppCompatActivity {
             firstenter = false;
             startActivity(new Intent(this, ChooseCPCofc.class));
             //this.finish();
-
         }
+
+
 
     }
 }
