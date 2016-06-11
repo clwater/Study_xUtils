@@ -38,14 +38,6 @@ public class ChooseCPCofc extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
 
 
-        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("选择地址");
-        actionBar.setSubtitle("选择地级市");
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setLogo(R.drawable.test);
-        actionBar.setDisplayUseLogoEnabled(true);
-
-
 
 
 
