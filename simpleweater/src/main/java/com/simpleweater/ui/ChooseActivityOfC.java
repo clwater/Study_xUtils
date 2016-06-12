@@ -1,6 +1,7 @@
 package com.simpleweater.ui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,9 +19,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.Volley;
 import com.simpleweater.R;
 import com.simpleweater.base.BaseApplication;
+import com.simpleweater.tools.analysis.CityAnalysis;
 import com.simpleweater.tools.analysis.ProvinceAnalysis;
+import com.simpleweater.tools.dbmodel.Table_City;
 import com.simpleweater.tools.dbmodel.Table_Province;
+import com.simpleweater.tools.model.City;
 import com.simpleweater.tools.model.Province;
+import com.simpleweater.tools.network.CityNetwork;
 import com.simpleweater.tools.network.ProvinceNetwork;
 
 import org.xutils.DbManager;
@@ -36,18 +41,19 @@ import java.util.Vector;
 /**
  * Created by yszsyf on 16/6/12.
  */
-@ContentView(R.layout.chooseactivityofp)
+@ContentView(R.layout.chooseactivityofc)
 public class ChooseActivityOfC extends AppCompatActivity {
 
-    @ViewInject(R.id.caofp_list)
-    private ListView caofp;
+    @ViewInject(R.id.caofc_list)
+    private ListView caofc;
 
 
     private String[] listviewtitle;
     private RequestQueue mRequestQueue;
-    private Vector<Province> province = new Vector<Province>();
+    private Vector<City> city = new Vector<City>();
     private BaseApplication baseapp;
     public static ProgressDialog pr;
+    private String parentP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,31 +63,34 @@ public class ChooseActivityOfC extends AppCompatActivity {
 
         setactionbar();
 
+        Intent getintent = getIntent();
+        parentP = getintent.getStringExtra("province");
+
         pr = ProgressDialog.show(this, null, "正在更新相关目录");
 
         mRequestQueue =  Volley.newRequestQueue(this);
 
         if(checkdate()) {
-            getP();
+            getC();
         }
 
 
 
     }
 
-    @Event(value = R.id.caofp_list,
+    @Event(value = R.id.caofc_list,
             type = AdapterView.OnItemClickListener.class
     )
     private void OnTouchListview_caofp(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this , "" + listviewtitle[position] , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this , "" + city.get(position).getName() , Toast.LENGTH_SHORT).show();
     }
 
     private boolean checkdate() {
 
         DbManager db = x.getDb(((BaseApplication)getApplicationContext()).getDaoConfig());
         try {
-            int all  = (int) db.selector(Table_Province.class).count();
-            List<Table_Province> list_pr=db.selector(Table_Province.class).findAll();
+            int all  = (int) db.selector(Table_City.class).count();
+            List<Table_City> list_pr=db.selector(Table_City.class).findAll();
 
             if(all < 1){
                 return true;
@@ -90,6 +99,9 @@ public class ChooseActivityOfC extends AppCompatActivity {
             for (int i=0;i<list_pr.size();i++){
                 Log.i("=-=",i+".name="+list_pr.get(i).getName());
                 listviewtitle[i] = list_pr.get(i).getName();
+                City c = new City();
+                c.setName(list_pr.get(i).getName());
+                city.add(c);
 
             }
             createlistview();
@@ -112,12 +124,13 @@ public class ChooseActivityOfC extends AppCompatActivity {
         actionBar.setDisplayUseLogoEnabled(true);
     }
 
-    private void getP() {
-        ProvinceNetwork request = new ProvinceNetwork(
+    private void getC() {
+        CityNetwork request = new CityNetwork(
+                parentP,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String result) {  //收到成功应答后会触发这里
-                        province = ProvinceAnalysis.provinceanalysis(result);
+                        city = CityAnalysis.cityanalysis(result);
                         setlisttitle();
                         pr.dismiss();
                     }
@@ -137,12 +150,12 @@ public class ChooseActivityOfC extends AppCompatActivity {
         DbManager db = x.getDb(baseapp.getDaoConfig());
 
 
-        listviewtitle = new String[province.size()];
-        for (int i = 0 ; i < province.size() ; i++){
-            listviewtitle[i] = province.get(i).getName();
-            Table_Province pr=new Table_Province();
-            pr.setName(province.get(i).getName());
-            pr.setId(province.get(i).getProvince_id());
+        listviewtitle = new String[city.size()];
+        for (int i = 0 ; i < city.size() ; i++){
+            listviewtitle[i] = city.get(i).getName();
+            Table_City pr=new Table_City();
+            pr.setName(city.get(i).getName());
+            //pr.setId(city.get(i).getProvince_id());
             try {
                 db.save(pr);
             } catch (DbException e) {}
@@ -154,7 +167,7 @@ public class ChooseActivityOfC extends AppCompatActivity {
     private void createlistview() {
 
 
-        caofp.setAdapter(new ArrayAdapter<String>(this,
+        caofc.setAdapter(new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, listviewtitle));
     }
     public boolean onCreateOptionsMenu(Menu menu) {

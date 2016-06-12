@@ -2,6 +2,7 @@ package com.simpleweater.ui;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -60,11 +61,12 @@ public class ChooseActivityOfP extends AppCompatActivity {
 
         setactionbar();
 
-        pr = ProgressDialog.show(this, null, "正在更新相关目录");
+
 
         mRequestQueue =  Volley.newRequestQueue(this);
 
         if(checkdate()) {
+            pr = ProgressDialog.show(this, null, "正在更新相关目录");
             getP();
         }
 
@@ -76,24 +78,34 @@ public class ChooseActivityOfP extends AppCompatActivity {
             type = AdapterView.OnItemClickListener.class
     )
     private void OnTouchListview_caofp(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this , "" + listviewtitle[position] , Toast.LENGTH_SHORT).show();
+        Toast.makeText(this , "" + province.get(position).getName() + "  " + province.get(position).getProvince_id() , Toast.LENGTH_SHORT).show();
+        Intent next = new Intent(this , ChooseActivityOfC.class);
+        next.putExtra("province" , province.get(position).getProvince_id());
+        startActivity(next);
     }
 
     private boolean checkdate() {
+        DbManager db = x.getDb(baseapp.getDaoConfig());
 
-        DbManager db = x.getDb(((BaseApplication)getApplicationContext()).getDaoConfig());
+
         try {
             int all  = (int) db.selector(Table_Province.class).count();
             List<Table_Province> list_pr=db.selector(Table_Province.class).findAll();
+            Log.d("=-=" , "check :  " + all);
 
             if(all < 1){
                 return true;
             }
+
             listviewtitle = new String[list_pr.size()];
             for (int i=0;i<list_pr.size();i++){
                 Log.i("=-=",i+".name="+list_pr.get(i).getName());
                 listviewtitle[i] = list_pr.get(i).getName();
 
+                Province pr = new Province();
+                pr.setName(list_pr.get(i).getName());
+                pr.setProvince_id(list_pr.get(i).getId());
+                province.add(pr);
             }
             createlistview();
 
@@ -109,7 +121,7 @@ public class ChooseActivityOfP extends AppCompatActivity {
     private void setactionbar() {
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         //actionBar.setSubtitle("副标题");
-        actionBar.setTitle("选择城市");
+        actionBar.setTitle("选择省份");
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setLogo(R.drawable.test);
         actionBar.setDisplayUseLogoEnabled(true);
@@ -138,6 +150,33 @@ public class ChooseActivityOfP extends AppCompatActivity {
 
     private void setlisttitle() {
         DbManager db = x.getDb(baseapp.getDaoConfig());
+
+
+        //DbManager db = x.getDb(daoConfig);
+//        Table_Province person1=new Table_Province();
+//        person1.setName("liyuanjinglyj");
+//        person1.setId("23");
+//        Table_Province person2=new Table_Province();
+//        person2.setName("xutilsdemo");
+//        person2.setId("56");
+//        try {
+//            db.save(person1);
+//            db.save(person2);
+//        } catch (DbException e) {
+//            e.printStackTrace();
+//        } finally {
+//
+//        }
+        //DbManager db2 = x.getDb(((BaseApplication)getApplicationContext()).getDaoConfig());
+//        try {
+//            List<Table_Province> lyjPersons=db.selector(Table_Province.class).findAll();
+//            for (int i=0;i<lyjPersons.size();i++){
+//                Log.i("=-=",""+i+".name="+lyjPersons.get(i).getName());
+//                Log.i("=-=",""+i+".name="+lyjPersons.get(i).getId());
+//            }
+//        } catch (DbException e) {
+//            e.printStackTrace();
+//        }
 
 
         listviewtitle = new String[province.size()];
