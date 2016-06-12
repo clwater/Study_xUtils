@@ -78,10 +78,20 @@ public class ChooseActivityOfP extends AppCompatActivity {
             type = AdapterView.OnItemClickListener.class
     )
     private void OnTouchListview_caofp(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this , "" + province.get(position).getName() + "  " + province.get(position).getProvince_id() , Toast.LENGTH_SHORT).show();
-        Intent next = new Intent(this , ChooseActivityOfC.class);
-        next.putExtra("province" , province.get(position).getProvince_id());
-        startActivity(next);
+        String pr = province.get(position).getName();
+        //Toast.makeText(this , "" + province.get(position).getName() + "  " + province.get(position).getProvince_id() , Toast.LENGTH_SHORT).show();
+
+        if (pr.equals("北京")||pr.equals("上海")||pr.equals("天津")||pr.equals("重庆")||pr.equals("香港")||pr.equals("澳门")){
+            MainActivity.pd2 = true;
+            MainActivity.city = province.get(position).getName();
+            Intent next = new Intent(this , MainActivity.class);
+            startActivity(next);
+        }else {
+
+            Intent next = new Intent(this, ChooseActivityOfC.class);
+            next.putExtra("province", province.get(position).getProvince_id());
+            startActivity(next);
+        }
     }
 
     private boolean checkdate() {

@@ -81,7 +81,7 @@ public class ChooseActivityOfC extends AppCompatActivity {
             type = AdapterView.OnItemClickListener.class
     )
     private void OnTouchListview_caofp(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(this , "" + city.get(position).getName() , Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this , "" + city.get(position).getName() , Toast.LENGTH_SHORT).show();
         MainActivity.pd2 = true;
         MainActivity.city = city.get(position).getName();
         Intent next = new Intent(this , MainActivity.class);
