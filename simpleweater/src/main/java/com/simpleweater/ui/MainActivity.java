@@ -3,10 +3,13 @@ package com.simpleweater.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.simpleweater.R;
 
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 
@@ -14,6 +17,11 @@ import org.xutils.x;
 public class MainActivity extends AppCompatActivity {
 
     public static boolean pd = true;
+    public static boolean pd2 = false;
+    @ViewInject(R.id.main_info)
+    private TextView mian_info;
+
+    public static String city = "nochoose";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,5 +43,14 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (pd2) {
+            mian_info.setText(city);
+        }
     }
 }

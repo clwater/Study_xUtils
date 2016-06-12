@@ -20,9 +20,7 @@ import com.android.volley.toolbox.Volley;
 import com.simpleweater.R;
 import com.simpleweater.base.BaseApplication;
 import com.simpleweater.tools.analysis.CityAnalysis;
-import com.simpleweater.tools.analysis.ProvinceAnalysis;
 import com.simpleweater.tools.dbmodel.Table_City;
-import com.simpleweater.tools.dbmodel.Table_Province;
 import com.simpleweater.tools.model.City;
 import com.simpleweater.tools.model.Province;
 import com.simpleweater.tools.network.CityNetwork;
@@ -66,11 +64,12 @@ public class ChooseActivityOfC extends AppCompatActivity {
         Intent getintent = getIntent();
         parentP = getintent.getStringExtra("province");
 
-        pr = ProgressDialog.show(this, null, "正在更新相关目录");
+
 
         mRequestQueue =  Volley.newRequestQueue(this);
 
         if(checkdate()) {
+            pr = ProgressDialog.show(this, null, "正在更新相关目录");
             getC();
         }
 
@@ -83,21 +82,29 @@ public class ChooseActivityOfC extends AppCompatActivity {
     )
     private void OnTouchListview_caofp(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(this , "" + city.get(position).getName() , Toast.LENGTH_SHORT).show();
+        MainActivity.pd2 = true;
+        MainActivity.city = city.get(position).getName();
+        Intent next = new Intent(this , MainActivity.class);
+        startActivity(next);
     }
 
     private boolean checkdate() {
 
-        DbManager db = x.getDb(((BaseApplication)getApplicationContext()).getDaoConfig());
+        DbManager db = x.getDb(baseapp.getDaoConfig());
+
         try {
-            int all  = (int) db.selector(Table_City.class).count();
-            List<Table_City> list_pr=db.selector(Table_City.class).findAll();
+
+
+            List<Table_City> list_pr = db.selector(Table_City.class).where("parent", "=", parentP).findAll();
+            int all  = (int) db.selector(Table_City.class).where("parent", "=", parentP).count();
+            //List<Table_City> list_pr=db.selector(Table_City.class).findAll();
 
             if(all < 1){
                 return true;
             }
             listviewtitle = new String[list_pr.size()];
             for (int i=0;i<list_pr.size();i++){
-                Log.i("=-=",i+".name="+list_pr.get(i).getName());
+               // Log.i("=-=2",i+".name="+list_pr.get(i).getName());
                 listviewtitle[i] = list_pr.get(i).getName();
                 City c = new City();
                 c.setName(list_pr.get(i).getName());
@@ -148,13 +155,12 @@ public class ChooseActivityOfC extends AppCompatActivity {
 
     private void setlisttitle() {
         DbManager db = x.getDb(baseapp.getDaoConfig());
-
-
         listviewtitle = new String[city.size()];
         for (int i = 0 ; i < city.size() ; i++){
             listviewtitle[i] = city.get(i).getName();
             Table_City pr=new Table_City();
             pr.setName(city.get(i).getName());
+            pr.setParent(parentP);
             //pr.setId(city.get(i).getProvince_id());
             try {
                 db.save(pr);

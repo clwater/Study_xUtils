@@ -91,7 +91,7 @@ public class ChooseActivityOfP extends AppCompatActivity {
         try {
             int all  = (int) db.selector(Table_Province.class).count();
             List<Table_Province> list_pr=db.selector(Table_Province.class).findAll();
-            Log.d("=-=" , "check :  " + all);
+            //Log.d("=-=" , "check :  " + all);
 
             if(all < 1){
                 return true;
@@ -152,31 +152,6 @@ public class ChooseActivityOfP extends AppCompatActivity {
         DbManager db = x.getDb(baseapp.getDaoConfig());
 
 
-        //DbManager db = x.getDb(daoConfig);
-//        Table_Province person1=new Table_Province();
-//        person1.setName("liyuanjinglyj");
-//        person1.setId("23");
-//        Table_Province person2=new Table_Province();
-//        person2.setName("xutilsdemo");
-//        person2.setId("56");
-//        try {
-//            db.save(person1);
-//            db.save(person2);
-//        } catch (DbException e) {
-//            e.printStackTrace();
-//        } finally {
-//
-//        }
-        //DbManager db2 = x.getDb(((BaseApplication)getApplicationContext()).getDaoConfig());
-//        try {
-//            List<Table_Province> lyjPersons=db.selector(Table_Province.class).findAll();
-//            for (int i=0;i<lyjPersons.size();i++){
-//                Log.i("=-=",""+i+".name="+lyjPersons.get(i).getName());
-//                Log.i("=-=",""+i+".name="+lyjPersons.get(i).getId());
-//            }
-//        } catch (DbException e) {
-//            e.printStackTrace();
-//        }
 
 
         listviewtitle = new String[province.size()];

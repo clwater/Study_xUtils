@@ -21,4 +21,15 @@ public class Table_City {
     @Column(name= "name",isId=true,autoGen=false)
     private String name;
 
+    public String getParent() {
+        return parent;
+    }
+
+    public void setParent(String parent) {
+        this.parent = parent;
+    }
+
+    @Column(name = "parent")
+    private String parent;
+
 }
