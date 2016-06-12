@@ -1,6 +1,5 @@
 package com.simpleweater.ui;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -16,7 +15,6 @@ import android.widget.Toast;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.simpleweater.R;
 import com.simpleweater.base.BaseApplication;
@@ -25,7 +23,6 @@ import com.simpleweater.tools.dbmodel.Table_Province;
 import com.simpleweater.tools.model.Province;
 import com.simpleweater.tools.network.ProvinceNetwork;
 
-import org.json.JSONException;
 import org.xutils.DbManager;
 import org.xutils.ex.DbException;
 import org.xutils.view.annotation.ContentView;
@@ -40,7 +37,7 @@ import java.util.Vector;
  * Created by yszsyf on 16/6/12.
  */
 @ContentView(R.layout.chooseactivityofp)
-public class ChooseActivityOfP extends AppCompatActivity {
+public class ChooseActivityOfC extends AppCompatActivity {
 
     @ViewInject(R.id.caofp_list)
     private ListView caofp;
@@ -128,7 +125,7 @@ public class ChooseActivityOfP extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) { //出现连接错误会触发这里
-                        Toast.makeText(ChooseActivityOfP.this , "获取城市列表失败,请稍后重试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChooseActivityOfC.this , "获取城市列表失败,请稍后重试", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
