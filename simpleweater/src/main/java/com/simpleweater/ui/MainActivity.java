@@ -81,16 +81,20 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this , ChooseActivityOfP.class));
             pd = false;
         }else{
+            mian_info.setText(city);
             createicon();
            // mian_info.setText(city);
             //String icon_path = "R.drawable." + weater_now.getCode();
            // weater_icon.setImageDrawable(getResources().getDrawable(icon_path);
+
+
 
             try {
                 getNowWeater();
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
+
 
 
 
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String result) {  //收到成功应答后会触发这里
                         Logger.d(result);
                         Logger.json(result);
-                        weater_now = WeaterNowAnalysis.getnow(result);
+                        //weater_now = WeaterNowAnalysis.getnow(result);
                         //weater_temp.setText(weater_now.getTemperature() + "˚");
                     }
                 },
@@ -132,6 +136,8 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sp = activity.getSharedPreferences("SW", MODE_PRIVATE);
         city =  sp.getString("location", "nochoose");
+
+        //Logger.d(city);
 
         if(city.equals("nochoose")){
             return true;
