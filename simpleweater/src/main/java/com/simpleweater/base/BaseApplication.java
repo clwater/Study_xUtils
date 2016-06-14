@@ -2,9 +2,13 @@ package com.simpleweater.base;
 
 import android.app.Application;
 
+import com.orhanobut.logger.Logger;
+
 import org.xutils.BuildConfig;
 import org.xutils.DbManager;
 import org.xutils.x;
+
+
 
 /**
  * Created by yszsyf on 16/5/31.
@@ -32,6 +36,8 @@ public class BaseApplication extends Application {
 
                     }
                 });
+
+        Logger.init("simpleweater");
     }
 
 }
