@@ -116,16 +116,16 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String result) {  //收到成功应答后会触发这里
-                        Logger.d(result);
-                        Logger.json(result);
-                        //weater_now = WeaterNowAnalysis.getnow(result);
-                        //weater_temp.setText(weater_now.getTemperature() + "˚");
+                        //Logger.d(result);
+                       // Logger.json(result);
+                        weater_now = WeaterNowAnalysis.getnow(result);
+                        weater_temp.setText(weater_now.getTemperature() + "˚");
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) { //出现连接错误会触发这里
-                        //Toast.makeText(ChooseActivityOfP.this , "获取城市列表失败,请稍后重试", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this , "获取当前信息失败,请重试.", Toast.LENGTH_SHORT).show();
                     }
                 }
         );

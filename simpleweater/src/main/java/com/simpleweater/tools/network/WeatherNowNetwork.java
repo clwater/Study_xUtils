@@ -13,6 +13,6 @@ import java.net.URLEncoder;
 public class WeatherNowNetwork extends StringRequest {
     public WeatherNowNetwork(String city , Response.Listener<String> listener, Response.ErrorListener errorListener) throws UnsupportedEncodingException {
         super("https://api.thinkpage.cn/v3/weather/now.json?key=pqmsn1xd41zne0oy&location="+URLEncoder.encode(city, "utf-8")+ "&language=zh-Hans&unit=c", listener, errorListener);
-        Logger.d("https://api.thinkpage.cn/v3/weather/now.json?key=pqmsn1xd41zne0oy&location="+URLEncoder.encode(city, "utf-8")+ "&language=zh-Hans&unit=c");
+        //Logger.d("https://api.thinkpage.cn/v3/weather/now.json?key=pqmsn1xd41zne0oy&location="+URLEncoder.encode(city, "utf-8")+ "&language=zh-Hans&unit=c");
     }
 }

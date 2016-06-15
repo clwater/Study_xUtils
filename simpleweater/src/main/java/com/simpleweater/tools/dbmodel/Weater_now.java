@@ -24,4 +24,14 @@ public class Weater_now {
 
     private String temperature;
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    private String text;
+
 }
